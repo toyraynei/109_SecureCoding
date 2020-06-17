@@ -1,0 +1,43 @@
+version: "2"
+
+services:
+    sourcecode:
+        build: ./SourceCode
+        ports:
+            - 10000:80
+        volumes:
+            - ./SourceCode/Server:/var/www/html/
+        networks:
+            - internal
+    
+    buildweb:
+        build: ./BuildWeb
+        ports:
+            - 10001:80
+        volumes:
+            - ./BuildWeb/Server:/var/www/html/
+        networks:
+            - internal
+    
+    robots:
+        build: ./Robots
+        ports:
+            - 10002:80
+        volumes:
+            - ./Robots/Server:/var/www/html/
+        networks:
+            - internal
+    
+    directorytraversal:
+        build: ./DirectoryTraversal
+        ports:
+            - 10003:80
+        volumes:
+            - ./DirectoryTraversal/Server:/var/www/html/
+            - ./DirectoryTraversal/flag.txt:/flag.txt
+        networks:
+            - internal
+
+networks:
+    internal:
+        driver: bridge
